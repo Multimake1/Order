@@ -8,48 +8,9 @@
 import Foundation
 
 class ViewModel {
-    lazy var cellViewModels: [TableViewModel] = [
-        //.init(type: .info(.init(title: "Промокоды", info: "На один товар можно применить только один промокод"))),
-        //.init(type: .applyPromo(.init(titleApply: "Применить промокод"))),
-        /*.init(type: .promo(.init(title: "VESNA20",
-                                 discount: "qweqwe",
-                                 percent: "-5",
-                                 info: "",
-                                 isActive: false,
-                                 toggle: { value, id in
-                                     self.togglePromo(value: value, id: id)
-                                 }))),
-        .init(type: .promo(.init(title: "VESNA20",
-                                 discount: "qweqwe",
-                                 percent: "-5",
-                                 info: "",
-                                 isActive: false,
-                                 toggle: { value, id in
-                                     self.togglePromo(value: value, id: id)
-                                 }))),
-        .init(type: .promo(.init(title: "VESNA20",
-                                 discount: "qweqwe",
-                                 percent: "-5",
-                                 info: "",
-                                 isActive: false,
-                                 toggle: { value, id in
-                                     self.togglePromo(value: value, id: id)
-                                 }))),
-        .init(type: .promo(.init(title: "VESNA20",
-                                 discount: "qweqwe",
-                                 percent: "-5",
-                                 info: "",
-                                 isActive: false,
-                                 toggle: { value, id in
-                                     self.togglePromo(value: value, id: id)
-                                 }))),*/
-        //.init(type: .hidePromo(.init(titleHide: "Скрыть промокод"))),
-        //.init(type: .totalPrice(.init(numberOfProducts: <#T##Int#>, totalPriceWithoutDiscounts: <#T##Double#>, discounts: <#T##Double#>, promocodesDiscount: <#T##Double#>, paymentMethodDiscount: <#T##Double#>)))
-    ]
+    lazy var cellViewModels = [TableViewModel]()
     
     var selectedPromos = [String]()
-    
-    
     
     func togglePromo(value: Bool, id: String) {
         guard let element = cellViewModels.first(where: { value in
@@ -73,10 +34,6 @@ class ViewModel {
             self.selectedPromos.remove(at: arrayId)
         }
     }
-    
-    
-    
-    
 }
 
 struct TableViewModel {
@@ -155,21 +112,13 @@ struct TableViewModel {
             func numberOfProducts() -> Int {
                 return products.count
             }
-            
         }
-        
-        
         case info(TitleInfo)
         case applyPromo(ApplyPromocode)
         case promo(Promo)
         case hidePromo(HidePromo)
         case totalPrice(Products)
-        
     }
-    
-    
-    
-    
     var type: ViewModelType
 }
 
@@ -214,8 +163,7 @@ struct Order {
         self.paymentDiscount = paymentDiscount
         self.baseDiscount = baseDiscount
     }
-    
-    //var productsPrice: Double? = nil
+
     var screenTitle: String
     var promocodes: [Promocode]
     let products: [Product]
@@ -225,7 +173,6 @@ struct Order {
     func checkOrderData() throws {
         var productsPrice: Double? = nil
         guard products.isEmpty != true else {
-            print("outofprod")
             throw CheckOrderDataErrors.outOfProducts
         }
         try products.forEach { element in
@@ -248,6 +195,3 @@ struct Order {
         }
     }
 }
-
-
-

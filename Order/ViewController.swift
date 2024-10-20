@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+final class ViewController: UIViewController {
     
     private let viewModel = ViewModel()
 
@@ -47,8 +47,9 @@ class ViewController: UIViewController {
         let order: Order = Order(screenTitle: "",
                                  promocodes: [.init(title: "VESNA20", percent: 5, endDate: formatter.date(from: "2024/10/08"), info: "", active: true),
                                               .init(title: "KROCS12", percent: 10, endDate: formatter.date(from:"2024/10/01"), info: "kefteme", active: false)],
-                                 products: [],
-                                 paymentDiscount: nil,
+                                 products: [.init(price: 1200, title: "asa"),
+                                            .init(price: 1000, title: "asdasd")],
+                                 paymentDiscount: 200,
                                  baseDiscount: 1000)
         self.configure()
         showOrder(with: order)
@@ -57,7 +58,7 @@ class ViewController: UIViewController {
 
 }
 
-class TotalPriceCell: UITableViewCell {
+final class TotalPriceCell: UITableViewCell {
     var viewModel: TableViewModel.ViewModelType.Products? {
         didSet {
             updateUI()
@@ -72,20 +73,11 @@ class TotalPriceCell: UITableViewCell {
     
     private lazy var countProductLabel = {
         let label = UILabel()
-        if viewModel?.numberOfProducts() == 1 {
-            label.text = "Цена за " + String(viewModel?.numberOfProducts() ?? 0) + " товар"
-        } else if viewModel?.numberOfProducts() == 2 || viewModel?.numberOfProducts() == 3 || viewModel?.numberOfProducts() == 4 {
-            label.text = "Цена за " + String(viewModel?.numberOfProducts() ?? 0) + " товара"
-        } else {
-            label.text = "Цена за " + String(viewModel?.numberOfProducts() ?? 0) + " товаров"
-        }
         return label
     }()
     
     private lazy var countProductPriceLabel = {
         let label = UILabel()
-        label.text = String(viewModel?.productPrice() ?? 0) + " ₽"
-        
         return label
     }()
     
@@ -98,7 +90,6 @@ class TotalPriceCell: UITableViewCell {
     private lazy var baseDiscountsPriceLabel = {
         let label = UILabel()
         label.textColor = .red
-        label.text = String(viewModel?.baseDiscount ?? 0) + " ₽"
         return label
     }()
     
@@ -169,6 +160,19 @@ class TotalPriceCell: UITableViewCell {
         guard let viewModel else {
             return
         }
+        
+        if viewModel.numberOfProducts() == 1 {
+            countProductLabel.text = "Цена за " + String(viewModel.numberOfProducts()) + " товар"
+        } else if viewModel.numberOfProducts() == 2 || viewModel.numberOfProducts() == 3 || viewModel.numberOfProducts() == 4 {
+            countProductLabel.text = "Цена за " + String(viewModel.numberOfProducts()) + " товара"
+        } else {
+            countProductLabel.text = "Цена за " + String(viewModel.numberOfProducts()) + " товаров"
+        }
+        countProductPriceLabel.text = String(viewModel.productPrice()) + " ₽"
+        baseDiscountsPriceLabel.text = String(viewModel.baseDiscount ?? 0) + " ₽"
+        promocodesPriceLabel.text = String(viewModel.promocodesDiscountCount()) + " ₽"
+        paymentDiscountPriceLabel.text = String(viewModel.paymentMethodDiscount ?? 0) + " ₽"
+        totalPriceLabel.text = String(viewModel.totalPrice()) + " ₽"
     }
 
     private func setupUI() {
@@ -262,7 +266,7 @@ class TotalPriceCell: UITableViewCell {
     }
 }
 
-class HidePromoCell: UITableViewCell {
+final class HidePromoCell: UITableViewCell {
     var viewModel: TableViewModel.ViewModelType.HidePromo? {
         didSet {
             updateUI()
@@ -311,7 +315,7 @@ class HidePromoCell: UITableViewCell {
     }
 }
 
-class ApplyPromocodeCell: UITableViewCell {
+final class ApplyPromocodeCell: UITableViewCell {
     var viewModel: TableViewModel.ViewModelType.ApplyPromocode? {
         didSet {
             updateUI()
@@ -372,7 +376,7 @@ class ApplyPromocodeCell: UITableViewCell {
     }
 }
 
-class TitleCell: UITableViewCell {
+final class TitleCell: UITableViewCell {
     var viewModel: TableViewModel.ViewModelType.TitleInfo? {
         didSet {
             updateUI()
@@ -381,9 +385,7 @@ class TitleCell: UITableViewCell {
     
     private lazy var titlePromoLabel: UILabel = {
         let label = UILabel()
-        //label.font = UIFont(name: "Roboto", size: 24)
         label.font = label.font.withSize(24)
-        //UIFont(name: "Roboto", size: 24)
         label.textAlignment = .left
         label.numberOfLines = 0
         label.textColor = .black
@@ -410,22 +412,17 @@ class TitleCell: UITableViewCell {
 
     private func setupUI() {
         contentView.addSubview(titlePromoLabel)
-        //contentView.backgroundColor = .green
-        
         titlePromoLabel.translatesAutoresizingMaskIntoConstraints = false
         titlePromoLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20).isActive = true
-        //titlePromoLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -40).isActive = true
         titlePromoLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 30).isActive = true
         titlePromoLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -30).isActive = true
         
         contentView.addSubview(titleInfoLabel)
-        
         titleInfoLabel.translatesAutoresizingMaskIntoConstraints = false
         titleInfoLabel.topAnchor.constraint(equalTo: titlePromoLabel.bottomAnchor, constant: 10).isActive = true
         titleInfoLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20).isActive = true
         titleInfoLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 30).isActive = true
         titleInfoLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -30).isActive = true
-        //titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20).isActive = true
     }
     
     required init?(coder: NSCoder) {
@@ -438,7 +435,7 @@ class TitleCell: UITableViewCell {
     }
 }
 
-class PromoCell: UITableViewCell {
+final class PromoCell: UITableViewCell {
     var viewModel: TableViewModel.ViewModelType.Promo? {
         didSet {
             updateUI()
@@ -487,15 +484,6 @@ class PromoCell: UITableViewCell {
         return label
     }()
     
-    /*private lazy var datePromo: UILabel = {
-        let label = UILabel()
-        label.font = label.font.withSize(20)
-        label.textAlignment = .left
-        label.numberOfLines = 0
-        label.textColor = .black
-        return label
-    }()*/
-    
     private lazy var percentLabel: UILabel = {
         let label = UILabel()
         label.font = label.font.withSize(20)
@@ -506,15 +494,6 @@ class PromoCell: UITableViewCell {
         label.layer.cornerRadius = 10
         return label
     }()
-    
-    /*private lazy var titleInfoLabel: UILabel = {
-        let label = UILabel()
-        label.font = label.font.withSize(14)
-        label.textAlignment = .left
-        label.numberOfLines = 0
-        label.textColor = .lightGray
-        return label
-    }()*/
     
     lazy var switchButton: UISwitch = {
         let button = UISwitch()
@@ -534,6 +513,7 @@ class PromoCell: UITableViewCell {
             return
         }
         
+        switchButton.setOn(viewModel.isActive, animated: true)
         titlePromoLabel.text = viewModel.title
         datePromoLabel.text = "По " + (viewModel.endDate?.formatted() ?? "")
     }
@@ -574,21 +554,13 @@ class PromoCell: UITableViewCell {
             promoView.addSubview(switchButton)
             switchButton.translatesAutoresizingMaskIntoConstraints = false
             switchButton.topAnchor.constraint(equalTo: promoView.topAnchor, constant: 10).isActive = true
-            //titlePromoLabel.bottomAnchor.constraint(equalTo: promoView.bottomAnchor, constant: -40).isActive = true
             switchButton.leftAnchor.constraint(equalTo: titlePromoLabel.rightAnchor, constant: 10).isActive = true
-            //switchButton.rightAnchor.constraint(equalTo: promoView.rightAnchor, constant: -20).isActive = true
             
             promoView.addSubview(circleView)
             circleView.translatesAutoresizingMaskIntoConstraints = false
-            //circleView.topAnchor.constraint(equalTo: promoView.topAnchor, constant: 10).isActive = true
-            //titlePromoLabel.bottomAnchor.constraint(equalTo: promoView.bottomAnchor, constant: -40).isActive = true
-            //circleView.rightAnchor.constraint(equalTo: promoView.centerXAnchor).isActive = true
             circleView.centerXAnchor.constraint(equalTo: promoView.rightAnchor).isActive = true
             circleView.centerYAnchor.constraint(equalTo: promoView.centerYAnchor).isActive = true
-            //circleView.leftAnchor.constraint(equalTo: titlePromoLabel.rightAnchor, constant: 10).isActive = true
-            //switchButton.rightAnchor.constraint(equalTo: promoView.rightAnchor, constant: -20).isActive = true
         } else {
-            print("r,,r,r")
             promoView.addSubview(subPromoView)
             subPromoView.translatesAutoresizingMaskIntoConstraints = false
             subPromoView.centerYAnchor.constraint(equalTo: promoView.centerYAnchor).isActive = true
@@ -621,29 +593,6 @@ class PromoCell: UITableViewCell {
             circleView.topAnchor.constraint(equalTo: promoView.centerYAnchor, constant: 5).isActive = true
             circleView.leftAnchor.constraint(equalTo: promoView.leftAnchor, constant: 5).isActive = true
             
-            
-            
-            
-            
-            
-            
-            /*contentView.addSubview(titlePromoLabel)
-             //contentView.backgroundColor = .green
-             
-             titlePromoLabel.translatesAutoresizingMaskIntoConstraints = false
-             titlePromoLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20).isActive = true
-             //titlePromoLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -40).isActive = true
-             titlePromoLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 30).isActive = true
-             titlePromoLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -30).isActive = true
-             
-             contentView.addSubview(titleInfoLabel)
-             
-             titleInfoLabel.translatesAutoresizingMaskIntoConstraints = false
-             titleInfoLabel.topAnchor.constraint(equalTo: titlePromoLabel.bottomAnchor, constant: 10).isActive = true
-             titleInfoLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20).isActive = true
-             titleInfoLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 30).isActive = true
-             titleInfoLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -30).isActive = true
-             */
         }
     }
     
@@ -708,49 +657,6 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-class ErrorController: UIViewController {
-    func showOrder(with order: Order) {
-        do {
-            try order.checkOrderData()
-        } catch CheckOrderDataErrors.outOfProducts {
-            let alertVC = UIAlertController(
-                title: "Error",
-                message: "Products are empty",
-                preferredStyle: .alert)
-            let action = UIAlertAction(title: "OK", style: .default, handler: nil)
-            alertVC.addAction(action)
-            self.present(alertVC, animated: true, completion: nil)
-            print("outofProdAlert")
-            return
-        } catch CheckOrderDataErrors.priceLessThenZero {
-            print("alert")
-            let alertVC = UIAlertController(
-                title: "Error",
-                message: "Price less then zero",
-                preferredStyle: .alert)
-            let action = UIAlertAction(title: "OK", style: .default, handler: nil)
-            alertVC.addAction(action)
-            self.present(alertVC, animated: true, completion: nil)
-        } catch CheckOrderDataErrors.totalPriceLessThenBaseDiscount {
-            let alertVC = UIAlertController(
-                title: "Error",
-                message: "Total price less then discount",
-                preferredStyle: .alert)
-            let action = UIAlertAction(title: "OK", style: .default, handler: nil)
-            alertVC.addAction(action)
-            self.present(alertVC, animated: true, completion: nil)
-        } catch {
-            let alertVC = UIAlertController(
-                title: "Error",
-                message: "Oooups, something goes wrong...",
-                preferredStyle: .alert)
-            let action = UIAlertAction(title: "OK", style: .default, handler: nil)
-            alertVC.addAction(action)
-            self.present(alertVC, animated: true, completion: nil)
-        }
-    }
-}
-
 private extension ViewController {
     
     func showOrder(with order: Order) {
@@ -764,8 +670,9 @@ private extension ViewController {
                 preferredStyle: .alert)
             let action = UIAlertAction(title: "OK", style: .default, handler: nil)
             alertVC.addAction(action)
-            self.present(alertVC, animated: true)
-            
+            DispatchQueue.main.async {
+                self.present(alertVC, animated: true, completion: nil)
+            }
         } catch CheckOrderDataErrors.priceLessThenZero {
             print("alert")
             let alertVC = UIAlertController(
@@ -774,7 +681,9 @@ private extension ViewController {
                 preferredStyle: .alert)
             let action = UIAlertAction(title: "OK", style: .default, handler: nil)
             alertVC.addAction(action)
-            self.present(alertVC, animated: true, completion: nil)
+            DispatchQueue.main.async {
+                self.present(alertVC, animated: true, completion: nil)
+            }
         } catch CheckOrderDataErrors.totalPriceLessThenBaseDiscount {
             let alertVC = UIAlertController(
                 title: "Error",
@@ -782,7 +691,9 @@ private extension ViewController {
                 preferredStyle: .alert)
             let action = UIAlertAction(title: "OK", style: .default, handler: nil)
             alertVC.addAction(action)
-            self.present(alertVC, animated: true, completion: nil)
+            DispatchQueue.main.async {
+                self.present(alertVC, animated: true, completion: nil)
+            }
         } catch CheckOrderDataErrors.totalPriceLessThenActivePromos {
             let alertVC = UIAlertController(
                 title: "Error",
@@ -790,7 +701,9 @@ private extension ViewController {
                 preferredStyle: .alert)
             let action = UIAlertAction(title: "OK", style: .default, handler: nil)
             alertVC.addAction(action)
-            self.present(alertVC, animated: true, completion: nil)
+            DispatchQueue.main.async {
+                self.present(alertVC, animated: true, completion: nil)
+            }
         } catch {
             let alertVC = UIAlertController(
                 title: "Error",
@@ -798,7 +711,9 @@ private extension ViewController {
                 preferredStyle: .alert)
             let action = UIAlertAction(title: "OK", style: .default, handler: nil)
             alertVC.addAction(action)
-            self.present(alertVC, animated: true, completion: nil)
+            DispatchQueue.main.async {
+                self.present(alertVC, animated: true, completion: nil)
+            }
         }
         
         self.viewModel.cellViewModels.append(.init(type: .info(.init(title: "Промокоды", info: "На один товар можно применить только один промокод"))))
@@ -825,8 +740,6 @@ private extension ViewController {
     }
     
     func configure() {
-        
-        //viewModel.cellViewModels.append(.init(type: .promo(.init(title: <#T##String#>, discount: <#T##String#>, percent: <#T##String#>, info: <#T##String#>, isActive: <#T##Bool#>))))
         self.view.addSubview(mainScreenLabel)
         mainScreenLabel.translatesAutoresizingMaskIntoConstraints = false
         mainScreenLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
@@ -846,50 +759,6 @@ private extension ViewController {
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         tableView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor).isActive = true
         tableView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor).isActive = true
-        
-        /*self.view.addSubview(totalView)
-        totalView.translatesAutoresizingMaskIntoConstraints = false
-        totalView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        totalView.heightAnchor.constraint(equalToConstant: 350).isActive = true
-        totalView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor).isActive = true
-        totalView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor).isActive = true*/
-        
-        /*NSLayoutConstraint(item: myView,
-                           attribute: .leading,
-                           relatedBy: .equal,
-                           toItem: view,
-                           attribute: .leading,
-                           multiplier: 1,
-                           constant: 20)
-        .isActive = true
-        
-        NSLayoutConstraint(item: myView,
-                           attribute: .width,
-                           relatedBy: .equal,
-                           toItem: nil,
-                           attribute: .notAnAttribute,
-                           multiplier: 1,
-                           constant: 200)
-        .isActive = true*/
-        
-        /*NSLayoutConstraint.activate([
-            myView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            myView.heightAnchor.constraint(equalToConstant: 22),
-            myView.widthAnchor.constraint(equalToConstant: 400)
-        ]) */
-        /*let label = UILabel()
-        label.textColor = .black
-        label.text = "Оформление заказа"
-        label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
-        myView.addSubview(label)
-        
-        NSLayoutConstraint.activate([
-            label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            label.heightAnchor.constraint(equalToConstant: 22),
-            label.widthAnchor.constraint(equalToConstant: 400)
-        ])*/
-        
     }
 }
 
