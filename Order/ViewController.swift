@@ -10,15 +10,6 @@ import UIKit
 final class ViewController: UIViewController {
     
     private let viewModel = ViewModel()
-
-    private lazy var mainScreenLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Оформление заказа"
-        label.textColor = .black
-        label.textAlignment = .center
-        label.numberOfLines = 0
-        return label
-    }()
     
     private lazy var emptyView: UIView = {
         let view = UIView()
@@ -44,7 +35,7 @@ final class ViewController: UIViewController {
         super.viewDidLoad()
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy/MM/dd"
-        let order: Order = Order(screenTitle: "",
+        let order: Order = Order(screenTitle: "Оформление экрана",
                                  promocodes: [.init(title: "VESNA20", percent: 5, endDate: formatter.date(from: "2024/10/08"), info: "", active: true),
                                               .init(title: "KROCS12", percent: 10, endDate: formatter.date(from:"2024/10/01"), info: "kefteme", active: false)],
                                  products: [.init(price: 1200, title: "asa"),
@@ -673,6 +664,7 @@ private extension ViewController {
             DispatchQueue.main.async {
                 self.present(alertVC, animated: true, completion: nil)
             }
+            return
         } catch CheckOrderDataErrors.priceLessThenZero {
             print("alert")
             let alertVC = UIAlertController(
@@ -684,6 +676,7 @@ private extension ViewController {
             DispatchQueue.main.async {
                 self.present(alertVC, animated: true, completion: nil)
             }
+            return
         } catch CheckOrderDataErrors.totalPriceLessThenBaseDiscount {
             let alertVC = UIAlertController(
                 title: "Error",
@@ -694,6 +687,7 @@ private extension ViewController {
             DispatchQueue.main.async {
                 self.present(alertVC, animated: true, completion: nil)
             }
+            return
         } catch CheckOrderDataErrors.totalPriceLessThenActivePromos {
             let alertVC = UIAlertController(
                 title: "Error",
@@ -704,6 +698,7 @@ private extension ViewController {
             DispatchQueue.main.async {
                 self.present(alertVC, animated: true, completion: nil)
             }
+            return
         } catch {
             let alertVC = UIAlertController(
                 title: "Error",
@@ -714,7 +709,9 @@ private extension ViewController {
             DispatchQueue.main.async {
                 self.present(alertVC, animated: true, completion: nil)
             }
+            return
         }
+        self.title = order.screenTitle
         
         self.viewModel.cellViewModels.append(.init(type: .info(.init(title: "Промокоды", info: "На один товар можно применить только один промокод"))))
         self.viewModel.cellViewModels.append(.init(type: .applyPromo(.init(titleApply: "Применить промокод"))))
@@ -740,18 +737,14 @@ private extension ViewController {
     }
     
     func configure() {
-        self.view.addSubview(mainScreenLabel)
-        mainScreenLabel.translatesAutoresizingMaskIntoConstraints = false
-        mainScreenLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        mainScreenLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        mainScreenLabel.heightAnchor.constraint(equalToConstant: 22).isActive = true
+        self.view.backgroundColor = .systemBackground
         
         self.view.addSubview(emptyView)
         emptyView.translatesAutoresizingMaskIntoConstraints = false
         emptyView.heightAnchor.constraint(equalToConstant: 16).isActive = true
         emptyView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor).isActive = true
         emptyView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor).isActive = true
-        emptyView.topAnchor.constraint(equalTo: mainScreenLabel.bottomAnchor).isActive = true
+        emptyView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         
         self.view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
