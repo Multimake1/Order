@@ -30,9 +30,10 @@ class ViewModel {
         
         let element = cellViewModels[index].type
         switch element {
-        case .promo(let promo):
-            var promo = promo
-            promo.isActive = !promo.isActive
+        case .promo(var promo):
+            //var promo = promo
+            //promo.isActive = !promo.isActive
+            promo.isActive.toggle()
             cellViewModels.remove(at: index)
             cellViewModels.insert(.init(type: .promo(promo)), at: index)
         default:
@@ -61,6 +62,36 @@ class ViewModel {
                 
             }
         }*/
+        
+        updateTotalPrice()
+    
+    }
+    
+    func updateTotalPrice() {
+        print("ppdsd")
+        
+        guard let index = cellViewModels.firstIndex(where: { value in
+            switch value.type {
+            case .totalPrice:
+                return true
+            default:
+                return false
+            }
+        }) else { return }
+        
+        let element = cellViewModels[index].type
+        switch element {
+        case .totalPrice(var totalPrice):
+            
+            //var totalPrice = totalPrice
+            //поменять значение totalPrice
+            totalPrice.baseDiscount = 100
+            cellViewModels.remove(at: index)
+            cellViewModels.insert(.init(type: .totalPrice(totalPrice)), at: index)
+            print(cellViewModels)
+        default:
+            break
+        }
     }
     
     func insertOrder(with order: Order) {
@@ -144,7 +175,7 @@ struct TableViewModel {
             
             let promocodes: [Promo]
             let products: [Product]
-            let baseDiscount: Double?
+            var baseDiscount: Double?
             let paymentMethodDiscount: Double?
             
             func productPrice() -> Double {

@@ -13,6 +13,12 @@
 		7C092C9D2CBFC8F70075AEA6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C092C9C2CBFC8F70075AEA6 /* Assets.xcassets */; };
 		7C092CA02CBFC8F70075AEA6 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 7C092C9F2CBFC8F70075AEA6 /* Base */; };
 		7C092CA82CBFC9260075AEA6 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C092CA72CBFC9260075AEA6 /* ViewModel.swift */; };
+		7C50C0252CCE904C00AFCAF6 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C50C0242CCE904C00AFCAF6 /* PaddingLabel.swift */; };
+		7C50C0272CCE97DB00AFCAF6 /* TotalPriceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C50C0262CCE97DB00AFCAF6 /* TotalPriceCell.swift */; };
+		7C50C0292CCE996E00AFCAF6 /* HidePromoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C50C0282CCE996E00AFCAF6 /* HidePromoCell.swift */; };
+		7C50C02B2CCE99AB00AFCAF6 /* ApplyPromocodeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C50C02A2CCE99AB00AFCAF6 /* ApplyPromocodeCell.swift */; };
+		7C50C02D2CCE9A9400AFCAF6 /* TitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C50C02C2CCE9A9400AFCAF6 /* TitleCell.swift */; };
+		7C50C02F2CCE9AD900AFCAF6 /* PromoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C50C02E2CCE9AD900AFCAF6 /* PromoCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +30,12 @@
 		7C092C9F2CBFC8F70075AEA6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7C092CA12CBFC8F70075AEA6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7C092CA72CBFC9260075AEA6 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		7C50C0242CCE904C00AFCAF6 /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
+		7C50C0262CCE97DB00AFCAF6 /* TotalPriceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalPriceCell.swift; sourceTree = "<group>"; };
+		7C50C0282CCE996E00AFCAF6 /* HidePromoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HidePromoCell.swift; sourceTree = "<group>"; };
+		7C50C02A2CCE99AB00AFCAF6 /* ApplyPromocodeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplyPromocodeCell.swift; sourceTree = "<group>"; };
+		7C50C02C2CCE9A9400AFCAF6 /* TitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleCell.swift; sourceTree = "<group>"; };
+		7C50C02E2CCE9AD900AFCAF6 /* PromoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +71,12 @@
 				7C092C932CBFC8F40075AEA6 /* AppDelegate.swift */,
 				7C092C952CBFC8F40075AEA6 /* SceneDelegate.swift */,
 				7C092C972CBFC8F40075AEA6 /* ViewController.swift */,
+				7C50C02E2CCE9AD900AFCAF6 /* PromoCell.swift */,
+				7C50C02C2CCE9A9400AFCAF6 /* TitleCell.swift */,
+				7C50C02A2CCE99AB00AFCAF6 /* ApplyPromocodeCell.swift */,
+				7C50C0282CCE996E00AFCAF6 /* HidePromoCell.swift */,
+				7C50C0262CCE97DB00AFCAF6 /* TotalPriceCell.swift */,
+				7C50C0242CCE904C00AFCAF6 /* PaddingLabel.swift */,
 				7C092CA72CBFC9260075AEA6 /* ViewModel.swift */,
 				7C092C9C2CBFC8F70075AEA6 /* Assets.xcassets */,
 				7C092C9E2CBFC8F70075AEA6 /* LaunchScreen.storyboard */,
@@ -137,7 +155,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7C50C0272CCE97DB00AFCAF6 /* TotalPriceCell.swift in Sources */,
+				7C50C02B2CCE99AB00AFCAF6 /* ApplyPromocodeCell.swift in Sources */,
+				7C50C0292CCE996E00AFCAF6 /* HidePromoCell.swift in Sources */,
+				7C50C02D2CCE9A9400AFCAF6 /* TitleCell.swift in Sources */,
 				7C092C982CBFC8F40075AEA6 /* ViewController.swift in Sources */,
+				7C50C02F2CCE9AD900AFCAF6 /* PromoCell.swift in Sources */,
+				7C50C0252CCE904C00AFCAF6 /* PaddingLabel.swift in Sources */,
 				7C092C942CBFC8F40075AEA6 /* AppDelegate.swift in Sources */,
 				7C092CA82CBFC9260075AEA6 /* ViewModel.swift in Sources */,
 				7C092C962CBFC8F40075AEA6 /* SceneDelegate.swift in Sources */,
