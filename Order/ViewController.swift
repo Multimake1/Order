@@ -66,6 +66,7 @@ final class ViewController: UIViewController {
         let order: Order = Order(screenTitle: "Оформление заказа",
                                  promocodes: [.init(title: "VESNAddssdsddssddsdsdssdsd20", percent: 5, endDate: formatter.date(from: "2024/10/08"), info: nil, active: true),
                                               .init(title: "KROweqwCS12", percent: 10, endDate: formatter.date(from:"2024/10/01"), info: "kefteme", active: false),
+                                              .init(title: "KROweqwCS12", percent: 10, endDate: formatter.date(from:"2024/10/01"), info: "kefteme", active: false),
                                               .init(title: "KROCqweqweS12", percent: 10, endDate: formatter.date(from:"2024/10/01"), info: "dfjakdfjaksfjlskadfj", active: false),
                                               .init(title: "KROCS12", percent: 10, endDate: formatter.date(from:"2024/10/01"), info: "", active: false),
                                               .init(title: "KROCS12", percent: 10, endDate: formatter.date(from:"2024/10/01"), info: "dmf msadkfjnsdkjnvjkdsnjkfdsnfjkasdnf", active: false)],

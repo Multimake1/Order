@@ -115,13 +115,6 @@ final class PromoCell: UITableViewCell {
         return button
     }()
     
-    /*private lazy var infoImage: UIImage = {
-        var image = UIImage()
-        image = UIImage(named: "infoImage") ??
-        //imageView.tintColor = orangeHexColor
-        return image
-    }()*/
-    
     private lazy var infoButton: UIButton = {
         let button = UIButton(type: .infoLight)
         let image = UIImage(named: "infoImage")
@@ -181,14 +174,12 @@ final class PromoCell: UITableViewCell {
         promoView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
         promoView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16).isActive = true
         promoView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16).isActive = true
-        //promoView.heightAnchor.constraint(equalToConstant: 66).isActive = true
         
         promoView.addSubview(subPromoView)
         subPromoView.translatesAutoresizingMaskIntoConstraints = false
         subPromoView.topAnchor.constraint(equalTo: promoView.topAnchor, constant: 18).isActive = true
         subPromoView.leftAnchor.constraint(equalTo: promoView.leftAnchor, constant: 20).isActive = true
         subPromoView.rightAnchor.constraint(equalTo: promoView.rightAnchor, constant: -20).isActive = true
-        //subPromoView.bottomAnchor.constraint(equalTo: promoView.bottomAnchor, constant: -12).isActive = true
         
         subPromoView.addSubview(switchButton)
         switchButton.translatesAutoresizingMaskIntoConstraints = false
@@ -198,41 +189,9 @@ final class PromoCell: UITableViewCell {
                 ])
         
         
-        
-        /*
-        NSLayoutConstraint.activate([
-                   switchButton.trailingAnchor.constraint(equalTo: background.trailingAnchor, constant: -16),
-                   switchButton.centerYAnchor.constraint(equalTo: mainView.centerYAnchor)
-               ])
-               
-               NSLayoutConstraint.activate([
-                   infoButton.centerYAnchor.constraint(equalTo: percentLabel.centerYAnchor),
-                   infoButton.leadingAnchor.constraint(equalTo: percentLabel.trailingAnchor, constant: 4),
-                   infoButton.trailingAnchor.constraint(lessThanOrEqualTo: switchButton.leadingAnchor, constant: -4)
-               ])
-
-               // percentLabel constraints
-               NSLayoutConstraint.activate([
-                   percentLabel.leadingAnchor.constraint(equalTo: promoLabel.trailingAnchor, constant: 4),
-                   percentLabel.topAnchor.constraint(equalTo: mainView.topAnchor)
-               ])
-
-               // promoLabel constraints
-         
-               NSLayoutConstraint.activate([
-                   promoLabel.leadingAnchor.constraint(equalTo: mainView.leadingAnchor),
-                   promoLabel.trailingAnchor.constraint(equalTo: percentLabel.leadingAnchor, constant: -8),
-                   promoLabel.topAnchor.constraint(equalTo: mainView.topAnchor)
-               ])
-        */
-        
-        
         subPromoView.addSubview(titlePromoLabel)
         contentView.addSubview(percentLabel)
         titlePromoLabel.translatesAutoresizingMaskIntoConstraints = false
-        //titlePromoLabel.topAnchor.constraint(equalTo: subPromoView.topAnchor).isActive = true
-        //titlePromoLabel.leadingAnchor.constraint(equalTo: subPromoView.leadingAnchor).isActive = true
-        //titlePromoLabel.bottomAnchor.constraint(equalTo: subPromoView.bottomAnchor, constant: -20).isActive = true
         NSLayoutConstraint.activate([
             titlePromoLabel.leadingAnchor.constraint(equalTo: subPromoView.leadingAnchor),
             titlePromoLabel.trailingAnchor.constraint(equalTo: percentLabel.leadingAnchor, constant: -8),
@@ -248,14 +207,9 @@ final class PromoCell: UITableViewCell {
         
         
         percentLabel.translatesAutoresizingMaskIntoConstraints = false
-        //percentLabel.frame.size.width = 35
-        //percentLabel.frame.size.height = 25
-        //percentLabel.layer.cornerRadius = percentLabel.frame.size.width / 2
         NSLayoutConstraint.activate([
             percentLabel.leadingAnchor.constraint(equalTo: titlePromoLabel.trailingAnchor, constant: 8),
             percentLabel.centerYAnchor.constraint(equalTo: titlePromoLabel.centerYAnchor),
-            //percentLabel.topAnchor.constraint(equalTo: titlePromoLabel.topAnchor),
-            //percentLabel.bottomAnchor.constraint(equalTo: titlePromoLabel.bottomAnchor)
         ])
         
         contentView.addSubview(infoButton)
@@ -287,57 +241,23 @@ final class PromoCell: UITableViewCell {
         circleRightView.centerYAnchor.constraint(equalTo: promoView.centerYAnchor).isActive = true
         circleRightView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -8).isActive = true
         
-        /*promoView.addSubview(infoLabel)
-        infoLabel.translatesAutoresizingMaskIntoConstraints = false
-        infoLabel.topAnchor.constraint(equalTo: subPromoView.bottomAnchor, constant: 8).isActive = true
-        infoLabel.leadingAnchor.constraint(equalTo: promoView.leadingAnchor, constant: 20).isActive = true
-        infoLabel.bottomAnchor.constraint(equalTo: promoView.bottomAnchor, constant: -12).isActive = true
-        infoLabel.trailingAnchor.constraint(equalTo: promoView.trailingAnchor, constant: -12).isActive = true*/
-        
-        
-        
-        
-        /*percentLabel.topAnchor.constraint(equalTo: titlePromoLabel.topAnchor, constant: 1).isActive = true
-        percentLabel.bottomAnchor.constraint(equalTo: titlePromoLabel.bottomAnchor, constant: -1).isActive = true
-        NSLayoutConstraint(item: percentLabel,
-                           attribute: .leading,
-                           relatedBy: .greaterThanOrEqual,
-                           toItem: titlePromoLabel,
-                           attribute: .trailing,
-                           multiplier: 1,
-                           constant: 8).isActive = true
-        NSLayoutConstraint(item: percentLabel,
-                           attribute: .trailing,
-                           relatedBy: .lessThanOrEqual,
-                           toItem: switchButton,
-                           attribute: .leading,
-                           multiplier: 1, constant: 8).isActive = true*/
-        
-        
-        
         titlePromoLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         titlePromoLabel.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
-        //itlePromoLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         percentLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
         infoButton.setContentCompressionResistancePriority(.required, for: .horizontal)
         switchButton.setContentCompressionResistancePriority(.required, for: .horizontal)
-        //promoLabel.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
         
-        //percentLabel.centerYAnchor.constraint(equalTo: titlePromoLabel.centerYAnchor).isActive = true
-        //percentLabel.leadingAnchor.constraint(equalTo: titlePromoLabel.trailingAnchor).isActive = true
-        //percentLabel.leadingAnchor.constraint(equalTo: titlePromoLabel.).isActive = true
-        
-        /*applyPromocodeButton.addSubview(applyPromocodeImage)
-        applyPromocodeImage.translatesAutoresizingMaskIntoConstraints = false
-        applyPromocodeImage.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
-        applyPromocodeImage.trailingAnchor.constraint(equalTo: applyPromocodeButton.titleLabel?.leadingAnchor ?? applyPromocodeButton.leftAnchor, constant: -10).isActive = true*/
-        
-        //circleView.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        //circleView.widthAnchor.constraint(equalToConstant: 20).isActive = true
-        //circleView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 5).isActive = true
         
             
         
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        titlePromoLabel.text = nil
+        datePromoLabel.text = nil
+        infoLabel.text = nil
+        percentLabel.text = nil
     }
     
 }

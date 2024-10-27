@@ -48,7 +48,7 @@ class ViewModel {
             self.selectedPromos.remove(at: arrayId)
         }
         
-        //тут логика блокировки свитчей
+        //логика блокировки свитчей дописать
         /*if self.selectedPromos.count >= 2 {
             
         } else {
@@ -84,7 +84,6 @@ class ViewModel {
         case .totalPrice(var totalPrice):
             
             //var totalPrice = totalPrice
-            //поменять значение totalPrice
             totalPrice.baseDiscount = 100
             cellViewModels.remove(at: index)
             cellViewModels.insert(.init(type: .totalPrice(totalPrice)), at: index)

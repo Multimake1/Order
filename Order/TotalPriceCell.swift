@@ -149,10 +149,11 @@ final class TotalPriceCell: UITableViewCell {
             return
         }
         
-        //placeAnOrderButton.bottomAnchor.constraint(equalTo: conditionsLabel.topAnchor, constant: -16).isActive = true
         countProductLabel.text = viewModel.priceOfProductsString()
         countProductPriceLabel.text = viewModel.productPriceString()
         
+        
+        //Это для отсутвующих и не нажатых промокодов, если бы они работали
         if viewModel.baseDiscount != 0 {
             baseDiscountsPriceLabel.text = viewModel.baseDiscountString()
         } else {
@@ -309,7 +310,6 @@ final class TotalPriceCell: UITableViewCell {
         
         
         conditionsLabel.translatesAutoresizingMaskIntoConstraints = false
-        //conditionsLabel.topAnchor.constraint(equalTo: placeAnOrderButton.bottomAnchor).isActive = true
         conditionsLabel.leftAnchor.constraint(equalTo: totalView.leftAnchor, constant: 32).isActive = true
         conditionsLabel.trailingAnchor.constraint(equalTo: totalView.trailingAnchor, constant: -32).isActive = true
         conditionsLabel.bottomAnchor.constraint(equalTo: totalView.bottomAnchor, constant: -40).isActive = true
@@ -330,5 +330,19 @@ final class TotalPriceCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()
     }
+    
+    /*override func prepareForReuse() {
+        super.prepareForReuse()
+        countProductLabel.text = nil
+        countProductPriceLabel.text = nil
+        baseDiscountsLabel.text = nil
+        baseDiscountsPriceLabel.text = nil
+        promocodesLabel.text = nil
+        promocodesPriceLabel.text = nil
+        paymentDiscountLabel.text = nil
+        paymentDiscountPriceLabel.text = nil
+        totalLabel.text = nil
+        totalPriceLabel.text = nil
+    }*/
     
 }
